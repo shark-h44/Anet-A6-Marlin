@@ -1415,7 +1415,7 @@
 #define CUSTOM_USER_MENUS
 #if ENABLED(CUSTOM_USER_MENUS)
   #define USER_SCRIPT_DONE "M117 User Script Done"
-  #define USER_SCRIPT_AUDIBLE_FEEDBACK
+  //#define USER_SCRIPT_AUDIBLE_FEEDBACK
   #define USER_SCRIPT_RETURN  // Return to status screen after a script
 
   #define USER_DESC_1 "Preheat for PLA"
@@ -1430,8 +1430,11 @@
   #define USER_DESC_4 "Heat Bed/Home/Level"
   #define USER_GCODE_4 "M140 S" STRINGIFY(PREHEAT_2_TEMP_BED) "\nG28\nG29"
 
-  #define USER_DESC_5 "PID BED 60deg"
-  #define USER_GCODE_5 "M303 E-1 S60 C8\nM117 PID bed Start"
+  #define USER_DESC_5 "clearance"
+  #define USER_GCODE_5 "G1 X110 Y70 Z70 F5000 \nM117 Clearance"
+
+  #define USER_DESC_6 "Clearance + purge"
+  #define USER_GCODE_6 "G1 X110 Y70 Z70 F5000 \nM104 S200 \nG1 E50 F150 \nM117 Clearance + purge"
 #endif
 
 /**
