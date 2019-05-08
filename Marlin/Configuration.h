@@ -74,10 +74,10 @@
 // User-specified version info of this build to display in [Pronterface, etc] terminal window during
 // startup. Implementation of an idea by Prof Braino to inform user that any changes made to this
 // build by the user have been successfully uploaded into firmware.
-#define STRING_CONFIG_H_AUTHOR "(Ralf_E, ANET A6 config)" // Who made the changes.
-//#define SHOW_BOOTSCREEN
-#define STRING_SPLASH_LINE1 SHORT_BUILD_VERSION // will be shown during bootup in line 1
-#define STRING_SPLASH_LINE2 WEBSITE_URL         // will be shown during bootup in line 2
+#define STRING_CONFIG_H_AUTHOR "(Shark-h44, ANET A6 config)" // Who made the changes.
+#define SHOW_BOOTSCREEN
+#define STRING_SPLASH_LINE1 "1.1.8 Shark-h44 BL"     // will be shown during bootup in line 1
+#define STRING_SPLASH_LINE2 "github.com/shark-h44"   // will be shown during bootup in line 2
 
 //
 // *** VENDORS PLEASE READ *****************************************************
@@ -124,7 +124,7 @@
 
 // Optional custom name for your RepStrap or other custom machine
 // Displayed in the LCD "Ready" message
-//#define CUSTOM_MACHINE_NAME "3D Printer"
+#define CUSTOM_MACHINE_NAME "Shark-h44 A6"
 
 // Define this to set a unique identifier for this printer, (Used by some programs to differentiate between machines)
 // You can use an online service to generate a random UUID. (eg http://www.uuidgenerator.net/version4)
@@ -325,12 +325,13 @@
 // When temperature exceeds max temp, your heater will be switched off.
 // This feature exists to protect your hotend from overheating accidentally, but *NOT* from thermistor short/failure!
 // You should use MINTEMP for thermistor short/failure protection.
-#define HEATER_0_MAXTEMP 275
-#define HEATER_1_MAXTEMP 275
-#define HEATER_2_MAXTEMP 275
-#define HEATER_3_MAXTEMP 275
-#define HEATER_4_MAXTEMP 275
-#define BED_MAXTEMP 130
+//modded by shark-h44
+#define HEATER_0_MAXTEMP 250
+#define HEATER_1_MAXTEMP 250
+#define HEATER_2_MAXTEMP 250
+#define HEATER_3_MAXTEMP 250
+#define HEATER_4_MAXTEMP 250
+#define BED_MAXTEMP 110
 
 //===========================================================================
 //============================= PID Settings ================================
@@ -343,7 +344,7 @@
 #define PID_MAX BANG_MAX // Limits current to nozzle while PID is active (see PID_FUNCTIONAL_RANGE below); 255=full current
 #define PID_K1 0.95      // Smoothing factor within the PID
 #if ENABLED(PIDTEMP)
-  //#define PID_AUTOTUNE_MENU // Add PID Autotune to the LCD "Temperature" menu to run M303 and apply the result.
+  #define PID_AUTOTUNE_MENU // Add PID Autotune to the LCD "Temperature" menu to run M303 and apply the result.
   //#define PID_DEBUG // Sends debug data to the serial port.
   //#define PID_OPENLOOP 1 // Puts PID in open loop. M104/M140 sets the output power from 0 to PID_MAX
   //#define SLOW_PWM_HEATERS // PWM with very low frequency (roughly 0.125Hz=8s) and minimum state time of approximately 1s useful for heaters driven by a relay
@@ -354,31 +355,16 @@
 
   // If you are using a pre-configured hotend then you can use one of the value sets by uncommenting it
 
-  // Ultimaker
-  //#define  DEFAULT_Kp 22.2
-  //#define  DEFAULT_Ki 1.08
-  //#define  DEFAULT_Kd 114
-
-  // MakerGear
-  //#define  DEFAULT_Kp 7.0
-  //#define  DEFAULT_Ki 0.1
-  //#define  DEFAULT_Kd 12
-
-  // Mendel Parts V9 on 12V
-  //#define  DEFAULT_Kp 63.0
-  //#define  DEFAULT_Ki 2.25
-  //#define  DEFAULT_Kd 440
-
   // ANET A6 Firmware V2.0 Standard Extruder defaults:
   // PID-P: +022.20, PID-I: +001.08, PID-D: +114.00, PID-C: 1
   //#define  DEFAULT_Kp 22.2
   //#define  DEFAULT_Ki 1.08
   //#define  DEFAULT_Kd 114.0
 
-  // Tuned by ralf-e. Always re-tune for your machine!
-  #define  DEFAULT_Kp 16.83
-  #define  DEFAULT_Ki 1.02
-  #define  DEFAULT_Kd 69.29
+  // Tuned by shark-h44. Always re-tune for your machine!
+  #define  DEFAULT_Kp 42.54
+  #define  DEFAULT_Ki 5.30
+  #define  DEFAULT_Kd 85.37
 
 #endif // PIDTEMP
 
@@ -420,14 +406,11 @@
   //#define  DEFAULT_bedKi 1.41
   //#define  DEFAULT_bedKd 1675.16
 
-  // ANET A6
-  // original Bed + 0.3mm Heat conducting into 4mm borosilicate (PID-Autotune: M303 E-1 S60 C5):
-  //#define  DEFAULT_bedKp 295.00
-  //#define  DEFAULT_bedKi 35.65
-  //#define  DEFAULT_bedKd 610.21
-  #define  DEFAULT_bedKp 295.00
-  #define  DEFAULT_bedKi 35.65
-  #define  DEFAULT_bedKd 610.21
+  // ANET A6 modded by shark-h44
+  // original Bed + 4mm glass (PID-Autotune: M303 E-1 S60 C5):
+  #define  DEFAULT_bedKp 703.55
+  #define  DEFAULT_bedKi 111.53
+  #define  DEFAULT_bedKd 1109.50
 
   // FIND YOUR OWN: "M303 E-1 C8 S90" to run autotune on the bed at 90 degreesC for 8 cycles.
 #endif // PIDTEMPBED
@@ -439,7 +422,7 @@
 // or to allow moving the extruder regardless of the hotend temperature.
 // *** IT IS HIGHLY RECOMMENDED TO LEAVE THIS OPTION ENABLED! ***
 #define PREVENT_COLD_EXTRUSION
-#define EXTRUDE_MINTEMP 170
+#define EXTRUDE_MINTEMP 180
 
 // This option prevents a single extrusion longer than EXTRUDE_MAXLENGTH.
 // Note that for Bowden Extruders a too-small value here may prevent loading.
@@ -699,7 +682,7 @@
  */
 #define PROBING_HEATERS_OFF       // Turn heaters off when probing
 #define PROBING_FANS_OFF          // Turn fans off when probing
-//#define DELAY_BEFORE_PROBING 200  // (ms) To prevent vibrations from triggering piezo sensors
+#define DELAY_BEFORE_PROBING 200  // (ms) To prevent vibrations from triggering piezo sensors
 
 // A probe that is deployed and stowed with a solenoid pin (SOL1_PIN)
 //#define SOLENOID_PROBE
@@ -745,7 +728,7 @@
 //#define Y_PROBE_OFFSET_FROM_EXTRUDER  3 // Y offset: -front +behind [the nozzle]
 //#define Z_PROBE_OFFSET_FROM_EXTRUDER 0   // Z offset: -below +above  [the nozzle]
 
-//ANET A6 with BLTouch/3D-Touch mounted on frankentein (stef)
+//ANET A6 with BLTouch/3D-Touch mounted on frankentein (shark-h44)
  #define X_PROBE_OFFSET_FROM_EXTRUDER 0 
  #define Y_PROBE_OFFSET_FROM_EXTRUDER -53
  #define Z_PROBE_OFFSET_FROM_EXTRUDER 0
@@ -768,7 +751,7 @@
 // The number of probes to perform at each point.
 //   Set to 2 for a fast/slow probe, using the second probe result.
 //   Set to 3 or more for slow probes, averaging the results.
-#define MULTIPLE_PROBING 2
+#define MULTIPLE_PROBING 3
 
 /**
  * Z probes require clearance when deploying, stowing, and moving between
@@ -785,7 +768,7 @@
  *     But: `M851 Z+1` with a CLEARANCE of 2  =>  2mm from bed to nozzle.
  */
 #define Z_CLEARANCE_DEPLOY_PROBE   10 // Z Clearance for Deploy/Stow
-#define Z_CLEARANCE_BETWEEN_PROBES  5 // Z Clearance between probe points
+#define Z_CLEARANCE_BETWEEN_PROBES 10 // Z Clearance between probe points - defaut 5 modded by shark-h
 //#define Z_CLEARANCE_DEPLOY_PROBE   5 // Z Clearance for Deploy/Stow
 //#define Z_CLEARANCE_BETWEEN_PROBES  3 // Z Clearance between probe points
 
@@ -842,7 +825,7 @@
 
 //#define NO_MOTION_BEFORE_HOMING  // Inhibit movement until all axes have been homed
 
-#define Z_HOMING_HEIGHT 4  // (in mm) Minimal z height before homing (G28) for Z clearance above the bed, clamps, ...
+#define Z_HOMING_HEIGHT 10  // (in mm) Minimal z height before homing (G28) for Z clearance above the bed, clamps, modded by shark-h, default:4
                              // Be sure you have this distance over your Z_MAX_POS in case.
 
 // Direction of endstops when homing; 1=MAX, -1=MIN
@@ -873,29 +856,14 @@
 //#define Z_MIN_POS 0
 //#define Z_MAX_POS 250
 
-// ANET A6, X0/Y0 0 front left bed edge :
+// ANET A6, with Frankenstein E3DV6 and clamp modded by shark-h
 #define X_BED_SIZE 222
 #define Y_BED_SIZE 222
 #define X_MIN_POS -3
 #define Y_MIN_POS -5
-#define Z_MIN_POS 0
+#define Z_MIN_POS -1.5 // A tester
 #define Z_MAX_POS 230
 
-// ANET A6 with new X-Axis / modded Y-Axis:
-//#define X_BED_SIZE 235
-//#define Y_BED_SIZE 230
-//#define X_MIN_POS 0
-//#define Y_MIN_POS 0
-//#define Z_MIN_POS 0
-//#define Z_MAX_POS 230
-
-// ANET A6 with new X-Axis / modded Y-Axis, X0/Y0 0 front left bed edge :
-//#define X_BED_SIZE 227
-//#define Y_BED_SIZE 224
-//#define X_MIN_POS -8
-//#define Y_MIN_POS -6
-//#define Z_MIN_POS 0
-//#define Z_MAX_POS 230
 
 #define X_MAX_POS X_BED_SIZE
 #define Y_MAX_POS Y_BED_SIZE
@@ -914,7 +882,7 @@
 #if ENABLED(MIN_SOFTWARE_ENDSTOPS)
   #define MIN_SOFTWARE_ENDSTOP_X
   #define MIN_SOFTWARE_ENDSTOP_Y
- // #define MIN_SOFTWARE_ENDSTOP_Z
+  #define MIN_SOFTWARE_ENDSTOP_Z
 #endif
 
 // Max software endstops curtail movement above maximum coordinate bounds
@@ -1019,7 +987,7 @@
 #if ENABLED(AUTO_BED_LEVELING_LINEAR) || ENABLED(AUTO_BED_LEVELING_BILINEAR)
 
   // Set the number of grid points per dimension.
-  #define GRID_MAX_POINTS_X 3 //modded by stef
+  #define GRID_MAX_POINTS_X 4 //modded by shark-h44
   #define GRID_MAX_POINTS_Y GRID_MAX_POINTS_X
 
   // Set the boundaries for probing (where the probe can reach).
@@ -1040,11 +1008,11 @@
   //#define FRONT_PROBE_BED_POSITION (0 + MIN_PROBE_EDGE)
   //#define BACK_PROBE_BED_POSITION (Y_MAX_POS + Y_PROBE_OFFSET_FROM_EXTRUDER)
 
-  // ANET A6 BLTOUCH with frankenstein (stef)
-  #define LEFT_PROBE_BED_POSITION   24
-  #define RIGHT_PROBE_BED_POSITION  210
-  #define BACK_PROBE_BED_POSITION   164
-  #define FRONT_PROBE_BED_POSITION  14
+  // ANET A6 BLTOUCH with frankenstein (shark-h)
+  #define LEFT_PROBE_BED_POSITION   18
+  #define RIGHT_PROBE_BED_POSITION  207
+  #define BACK_PROBE_BED_POSITION   169
+  #define FRONT_PROBE_BED_POSITION  12
 
   // ANET A6 with new X-Axis and modded Y-Axis
   //#define LEFT_PROBE_BED_POSITION 20
@@ -1298,13 +1266,20 @@
 // @section temperature
 
 // Preheat Constants
+//PLA
 #define PREHEAT_1_TEMP_HOTEND 200
-#define PREHEAT_1_TEMP_BED     50
+#define PREHEAT_1_TEMP_BED     60
 #define PREHEAT_1_FAN_SPEED     0 // ANET A6 Default is 255
 
+//ABS
 #define PREHEAT_2_TEMP_HOTEND 230
-#define PREHEAT_2_TEMP_BED     70
+#define PREHEAT_2_TEMP_BED     90
 #define PREHEAT_2_FAN_SPEED     0 // ANET A6 Default is 255
+
+//PETG
+#define PREHEAT_3_TEMP_HOTEND 200
+#define PREHEAT_3_TEMP_BED     70
+#define PREHEAT_3_FAN_SPEED     0 // ANET A6 Default is 255
 
 /**
  * Nozzle Park
